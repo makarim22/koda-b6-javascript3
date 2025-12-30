@@ -1,24 +1,18 @@
-const arr = [1, 3, 5, 7, 8, 9, 6, 2, 4, 10];
+const names = ["jaka", "michael", "jodi", "budi", "siti", "andi", "rudi"];
 
-
-function sort(array) {
-    let sorted = [];
-    
-    for (let i = 0; i < array.length; i++) {
-        sorted[i] = array[i];
-    }
-
-    for (let i = 0; i < sorted.length - 1; i++) {
-        for (let j = 0; j < sorted.length - 1 - i; j++) {
-            if (sorted[j] > sorted[j + 1]) {
-                let temp = sorted[j];
-                sorted[j] = sorted[j + 1];
-                sorted[j + 1] = temp;
-            }
-        }
-    }
-    
-    return sorted;
+function isSubstring(word, keyword) {
+    return word.toLowerCase().includes(keyword.toLowerCase());
 }
-console.log("hello");
-console.log(sort(arr));
+
+
+function findKeyword(keyword) {
+    for (let i = 0; i < names.length; i++) {
+        if (isSubstring(names[i], keyword)) {
+            return "Nama  "  + names[i] + " ditemukan";
+        } 
+    }
+    return "nama " + keyword + " tidak ditemukan";
+}
+
+let keyword="abdul";
+console.log(findKeyword(keyword));
