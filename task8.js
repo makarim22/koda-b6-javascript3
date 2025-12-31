@@ -68,7 +68,7 @@ function fetchData() {
 }
 
 // versi async await
-async function main() {
+async function daftarEmail() {
   try {
     const emails = await fetchData();
     console.log(emails);
@@ -81,4 +81,5 @@ fetchData()
   .then((emails) => console.log(emails))
   .catch((err) => console.log(err));
 
-main();
+daftarEmail();
+
