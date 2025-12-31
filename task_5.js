@@ -5,40 +5,43 @@ const data = [
     { nama: "budi", waktuTunggu: 4 },
     { nama: "siti", waktuTunggu: 1 },
     { nama: "andi", waktuTunggu: 6 },
-    { nama: "rudi", waktuTunggu: 7 },
-    { nama: "", waktuTunggu: 2 },
-    { nama: "Yusuf", waktuTunggu: 2 }
+    { nama: "rudi", waktuTunggu: 7 }
 ];
 
 
-function prosesSatuOrang(person){
+const prosesPesanan = async () => {
     return new Promise((resolve, reject) => {
-        let waktu = person.waktuTunggu;
 
-        if(person.nama === null || person.nama === ""){
-            reject("nama tidak boleh kosong");
-        }
-
-        const interval = setInterval(() => {
-            waktu -= 1;
-            console.log("menunggu antrian...");
-            if (waktu === 0) {
-                console.log(`Halo ${person.nama}, pesananmu sudah selesai!`);
-                clearInterval(interval);
-                resolve();
+        for(let i = 0; i < data.length; i++){
+            if(data[i].nama === "" || data[i].nama === null){
+                reject("nama tidak boleh kosong");
+                return;
             }
-        }, 1000);
+        }
+        
+        const interval = setInterval(() => {
+            let selesai = true;
+            for (let i = 0; i < data.length; i++) {
+            if (data[i].waktuTunggu > 0) {
+                data[i].waktuTunggu -= 1;
+                selesai = false;
+                 console.log("menunggu antrian...");
+                if (data[i].waktuTunggu === 0) {
+                    console.log(`Halo ${data[i].nama}, pesananmu sudah selesai!`);
+                }
+            }
+        }
+        if (selesai) {
+            clearInterval(interval);
+            resolve();
+        }
+    }, 1000);
     })
+    
 }
 
-async function prosesSemua() {
-    for (let i = 0; i < data.length; i++) {
-        await prosesSatuOrang(data[i]);
-    }
-}
-
-prosesSemua().then(() => {
-    console.log("Semua pesanan sudah diproses");
+prosesPesanan().then(() => {
+    console.log("semua pesanan selesai");
 }).catch((err) => {
     console.log(err);
-});
+})
